@@ -83,6 +83,11 @@ rm -r $archive_temp
 
 echo -e "${Green}SUCCESS: Compression complete."
 
+echo -e "${White}Removing 'wp_compress.sh' for security purposes."
+rm wp_compress.sh
+
 echo -e "${Cyan}Your archive file is ready at ${NC}'~/$archive_tar'."
 echo -e "${Cyan}Use the following command to download it to your desktop."
 echo -e "${NC}    scp root@$IP:$archive_tar ~/Desktop/"
+
+exit "--"
