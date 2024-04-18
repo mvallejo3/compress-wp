@@ -90,4 +90,4 @@ echo -e "${Cyan}Your archive file is ready at ${NC}'~/$archive_tar'."
 echo -e "${Cyan}Use the following command to download it to your desktop."
 echo -e "${NC}    scp root@$IP:$archive_tar ~/Desktop/"
 
-exit "--"
+exit
