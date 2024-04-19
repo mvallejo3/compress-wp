@@ -18,5 +18,5 @@ Copy the `wp_unpack.sh` file into the root directory and run it.
 wget -O wp_unpack.sh https://raw.githubusercontent.com/mvallejo3/compress-wp/main/cloudpanel/wp_unpack.sh
 chmod +x wp_unpack.sh
 # pass filename 
-./wp_compress.sh __filename__
+./wp_unpack.sh __filename__
 ```
