@@ -1,3 +1,21 @@
+# Compress a WordPress site
+
+`ssh` into cloudpanel server.
+```sh
+ssh root@__cp_ip__
+```
+
+Copy the `wp_compress.sh` file into the root directory and run it.
+
+```sh
+wget -O wp_compress.sh https://raw.githubusercontent.com/mvallejo3/compress-wp/main/cloudpanel/wp_compress.sh
+chmod +x wp_compress.sh
+# pass filename 
+./wp_compress.sh __filename__
+```
+
+---
+
 # Unpack a WordPress site
 
 Upload your archive file into a cloudpanel server.
