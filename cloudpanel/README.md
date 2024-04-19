@@ -8,10 +8,13 @@ ssh root@__cp_ip__
 Copy the `wp_compress.sh` file into the root directory and run it.
 
 ```sh
-wget -O wp_compress.sh https://raw.githubusercontent.com/mvallejo3/compress-wp/main/cloudpanel/wp_compress.sh
-chmod +x wp_compress.sh
-# pass filename 
-./wp_compress.sh __filename__
+wget -O wp_compress.sh https://raw.githubusercontent.com/mvallejo3/compress-wp/main/cloudpanel/wp_compress.sh; chmod +x wp_compress.sh
+```
+
+Run the shell script.
+
+```sh
+./wp_compress.sh filename /home/__site_user__/htdocs/__site_root__
 ```
 
 ---
@@ -33,8 +36,11 @@ ssh root@__cp_ip__
 Copy the `wp_unpack.sh` file into the root directory and run it.
 
 ```sh
-wget -O wp_unpack.sh https://raw.githubusercontent.com/mvallejo3/compress-wp/main/cloudpanel/wp_unpack.sh
-chmod +x wp_unpack.sh
-# pass filename 
-./wp_unpack.sh __filename__
+wget -O wp_unpack.sh https://raw.githubusercontent.com/mvallejo3/compress-wp/main/cloudpanel/wp_unpack.sh; chmod +x wp_unpack.sh
+```
+
+Run the shell script.
+
+```sh
+./wp_unpack.sh filename /home/__site_user__/htdocs/__site_root__
 ```
