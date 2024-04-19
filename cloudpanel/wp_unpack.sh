@@ -18,24 +18,11 @@ BrightMagenta='\033[0;95m'
 BrightCyan='\033[0;96m'
 BrightWhite='\033[0;97m'
 
-if [ -z "$1" ]; then
-  echo -e "${Red}ERROR: You must provide one parameter to use as the file name for the archive."
-  echo -e "${NC} For example:"
-  echo -e "$    ./wp_unpack.sh filename site_user site_root"
-  exit 0
-fi
 
-if [ -z "$2" ]; then
-  echo -e "${Red}ERROR: You must provide a second parameter to use as the site user."
-  echo -e "${NC} For example:"
-  echo -e "$    ./wp_unpack.sh filename site_user site_root"
-  exit 0
-fi
-
-if [ -z "$3" ]; then
-  echo -e "${Red}ERROR: You must provide a third parameter to use as the site root directory."
-  echo -e "${NC} For example:"
-  echo -e "$    ./wp_unpack.sh filename site_user site_root"
+if [ -z "$1" ] || [ -z "$2" ]; then
+  echo -e "${Red}ERROR: You are missing arguments. Follow the example below:"
+  echo -e "${NC} -- "
+  echo -e "$    ./wp_unpack.sh filename /home/photon-wpstg/htdocs/wpstg.photon.software"
   exit 0
 fi
 
@@ -44,9 +31,10 @@ IP=$(hostname -I | grep -o '^[^ ]*')
 FILE_NAME=$1
 TAR_FILE="${FILE_NAME}.tar.gz"
 TEMP_DIR="${FILE_NAME}_temp"
-SITE_USER=$2
-SITE_ROOT=$3
-WP_ROOT="/home/$SITE_USER/htdocs/$SITE_ROOT"
+
+WP_ROOT=$2
+SITE_USER=$(echo $WP_ROOT | cut -d '/' -f 3)
+SITE_ROOT=$(echo $WP_ROOT | cut -d '/' -f 5)
 WP_CONTENT="${WP_ROOT}/wp-content"
 WP_CONFIG="${WP_ROOT}/wp-config.php"
 # Grab the PW from wp-config
@@ -80,8 +68,6 @@ mysql -u $SITE_USER -p$DB_PW $SITE_USER < "$FILE_NAME.sql"
 
 echo -e "${Green}SUCCESS: Database import complete."
 
-echo $WP_CONTENT
-
 echo -e "${White}PROCESS: Copying 'themes', 'plugins', 'uploads', and 'mu-plugins' directories into '$WP_CONTENT'."
 
 cp -r themes/ plugins/ uploads/ mu-plugins/ $WP_CONTENT
@@ -92,7 +78,7 @@ echo -e "${White}PROCESS: Moving back to root."
 
 cd ~/
 
-echo -e "${White}PROCESS: Removing $TEMP_DIR and $TAR_FILE."
+echo -e "${White}PROCESS: Removing $TEMP_DIR."
 
 rm -r $TEMP_DIR
 
