@@ -21,7 +21,7 @@ BrightWhite='\033[0;97m'
 if [ -z "$1" ]; then
   echo -e "${Red}ERROR: You must provide one parameter to use as the file name for the archive."
   echo -e "${NC} For example:"
-  echo -e "$    ./wp_compress filename"
+  echo -e "$    ./wp_compress.sh filename"
   exit 0
 fi
 
