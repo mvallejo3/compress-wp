@@ -12,5 +12,5 @@ Choose the version of the sripts that matches your hositng provider/setup when u
 Any hosting provider can choose to structure Wordpress slightly different. In order for these scripts to know where to go to find the right directories, they need to know a little bit about your servers.
 
 The plan is to continue to add more providers as we encounter them, but for now, the script supports the following servers:
-- (DigitalOcean WordPress droplet)[https://marketplace.digitalocean.com/apps/wordpress].
-- (CloudPanel WordPress site)[https://www.cloudpanel.io/].
+- [DigitalOcean WordPress droplet](https://marketplace.digitalocean.com/apps/wordpress).
+- [CloudPanel WordPress site](https://www.cloudpanel.io/).
