@@ -19,26 +19,24 @@ BrightCyan='\033[0;96m'
 BrightWhite='\033[0;97m'
 
 
-if [ -z "$1" ] || [ -z "$2" ]; then
+if [ -z "$1" ] ]; then
   echo -e "${Red}ERROR: You are missing arguments. Follow the example below:"
   echo -e "${NC} -- "
-  echo -e "$    ./wp_unpack.sh filename /home/photon-wpstg/htdocs/wpstg.photon.software"
+  echo -e "$    ./wp_unpack.sh filename"
   exit 0
 fi
 
 IP=$(hostname -I | grep -o '^[^ ]*')
 
+# Grab the necessary passwords from DO
+. .digitalocean_password
+
 FILE_NAME=$(echo $1 | cut -d '.' -f 1)
 TAR_FILE="${FILE_NAME}.tar.gz"
 TEMP_DIR="${FILE_NAME}_temp"
 
-WP_ROOT=$2
-SITE_USER=$(echo $WP_ROOT | cut -d '/' -f 3)
-SITE_ROOT=$(echo $WP_ROOT | cut -d '/' -f 5)
+WP_ROOT='/var/www/html'
 WP_CONTENT="${WP_ROOT}/wp-content"
-WP_CONFIG="${WP_ROOT}/wp-config.php"
-# Grab the PW from wp-config
-DB_PW=$(cat $WP_CONFIG | grep DB_PASSWORD | cut -d \' -f 4)
 
 if [ -d "$TEMP_DIR" ]; then
   echo -e "${Yellow}WARNING: ${BrightYellow}$TEMP_DIR directory already exists. It will be deleted and recreated."
@@ -64,7 +62,7 @@ ls -lh
 
 echo -e "${White}PROCESS: Importing database."
 
-mysql -u $SITE_USER -p$DB_PW $SITE_USER < "$FILE_NAME.sql"
+mysql -u root -p$root_mysql_pass wordpress < "$FILE_NAME.sql"
 
 echo -e "${Green}SUCCESS: Database import complete."
 
@@ -76,7 +74,7 @@ echo -e "${Green}SUCCESS: Files copied successfully."
 
 echo -e "${White}PROCESS: Setting permissions."
 
-chown -R $SITE_USER:$SITE_USER $WP_CONTENT/themes/ $WP_CONTENT/plugins/ $WP_CONTENT/uploads/ $WP_CONTENT/mu-plugins/
+chown -R www-data:www-data $WP_CONTENT/themes/ $WP_CONTENT/plugins/ $WP_CONTENT/uploads/ $WP_CONTENT/mu-plugins/
 
 echo -e "${Green}SUCCESS: Permissions set."
 
