@@ -74,6 +74,12 @@ cp -r themes/ plugins/ uploads/ mu-plugins/ $WP_CONTENT
 
 echo -e "${Green}SUCCESS: Files copied successfully."
 
+echo -e "${White}PROCESS: Setting permissions."
+
+chown -R $SITE_USER:$SITE_USER $WP_CONTENT/themes/ $WP_CONTENT/plugins/ $WP_CONTENT/uploads/ $WP_CONTENT/mu-plugins/
+
+echo -e "${Green}SUCCESS: Permissions set."
+
 echo -e "${White}PROCESS: Moving back to root."
 
 cd ~/
